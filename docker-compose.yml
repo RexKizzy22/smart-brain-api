@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+
+  # SMART-BRAIN-API
+  smart-brain-api:
+    container_name: backend
+    build: ./
+    working_dir: /app/smart-brain-api
+    environment: 
+      POSTGRES_URI: postgres://decagon@localhost:5432/smart-brain
+    command: npm start
+    ports: 
+      - 3000:3000
+    volumes:
+      - ./:/app/smart-brain-api
+
+  # POSTGRES
+  postgres:
+    build: ./postgres
+    environment: 
+      POSTGRES_USER: decagon
+      POSTGRES_DB: smart-brain
+      POSTGRES_HOST: localhost
+    ports: 
+      - 5432:5432
+    volumes: 
+      - ./:/smart-brain
+
+volumes:
+  smart-brain: 
